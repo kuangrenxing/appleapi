@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title><?php echo $this->data['title'];?> - 拖拉网</title>
+<link href="<?php echo PX_UI_DOMAIN;?>src/css/tlbar102101.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<?php echo PX_UI_DOMAIN;?>src/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="<?php echo PX_UI_DOMAIN;?>src/js/tl.plugins.js"></script>
+<script type="text/javascript" src="<?php echo PX_UI_DOMAIN;?>src/js/base.js"></script>
+<script type="text/javascript">
+<?php
+if (IS_LOGIN){
+echo "var TUOLAR_UID='".LOGIN_UID."';";
+}else{
+echo "var TUOLAR_UID=0;";
+}
+?>
+</script>
+</head>
+<body>
+<div id="bar">
+	<a class="logo" href="http://www.tuolar.com" title="拖拉网">拖拉</a>
+    <a class="link linkpage" href="<?php echo $this->click;?>" title="<?php echo $this->data['title'];?>"><?php echo mb_substr($this->data['title'] , 0 , 20 , 'utf-8');?><span></span></a>
+    <p class="action">
+        <a class="keep" href="javascript:;" onclick="<?php if($this->type == "mt"){ echo "addMtLike('{$this->data['id']}' , 'u-prod-{$this->data['id']}')";}else{ echo "addProdLike('{$this->data['id']}' , 'u-prod-{$this->data['id']}')";}?>">喜欢(<span id="u-prod-<?php echo $this->data['id'];?>"><?php echo $this->data['likenum'];?></span>)</a>
+        <a class="comment" href="<?php echo $this->link;?>">评论(<?php echo $this->data['commnum'];?>)</a>
+    </p>
+    <p class="share">
+       <a class="sina" href="javascript:;" title="分享到新浪微博" onclick="TLshare('sina','<?php echo IMAGE_DOMAIN.getPropath($this->data['img_url'] , 300);?>' , '<?php echo $this->data['title'];?>')"></a>
+       <a class="qq" href="javascript:;" title="分享到腾讯微博" onclick="TLshare('tqq','<?php echo IMAGE_DOMAIN.getPropath($this->data['img_url'] , 300);?>' , '<?php echo $this->data['title'];?>')"></a>
+       <a class="renren" href="javascript:;" title="分享到人人网" onclick="TLshare('renren','<?php echo IMAGE_DOMAIN.getPropath($this->data['img_url'] , 300);?>' , '<?php echo $this->data['title'];?>')"></a>
+       <a class="kaixin" href="javascript:;" title="分享到开心网" onclick="TLshare('kaixin','<?php echo IMAGE_DOMAIN.getPropath($this->data['img_url'] , 300);?>' , '<?php echo $this->data['title'];?>')"></a>
+    </p>
+    <?php
+    if (isset($this->data['uid'])){
+    	?>
+    <a class="keeper" target="_blank" href="./?m=user&uid=<?php echo $this->data['uid'];?>" title="<?php echo $this->user['username'];?>">分享用户：<img src="<?php echo $this->user['head'];?>" /></a>
+    	<?php
+    }
+    ?>
+    <a class="close" href="<?php echo $this->click;?>" title="关闭此栏"></a>
+</div>
+<iframe noresize="noresize" frameborder="0" src="<?php echo $this->data['source_site_url'];?>" id="barframe"></iframe>
+</body>
+</html>
